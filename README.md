@@ -129,7 +129,7 @@ cat /proc/mtd
 ### Running Services & Web Endpoints
 Running `ps` enumerated active background daemons:
 * `/usr/sbin/infosvr`: ASUS network discovery service listening on `br0`
-* `httpd`: Embedded web management server[cite: 1]
+* `httpd`: Embedded web management server
 * `/sbin/wanduck`: ASUS WAN connection monitor
 * `upnpd`: UPnP discovery daemon
 * `dnsmasq`: DHCP and DNS relay
