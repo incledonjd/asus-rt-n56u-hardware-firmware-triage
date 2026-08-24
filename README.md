@@ -148,7 +148,7 @@ ls -C /www
 ## 4. Security Findings
 
 ### Finding 1: Insecure Credential Storage in NVRAM (CWE-312)
-* **Description:** Administrative credentials for the web interface are stored in cleartext within non-volatile flash memory (NVRAM).
+* **Description:** Administrative credentials for the web interface are stored in cleartext within NVRAM.
 * **Proof of Concept:**  
   Querying the `http_passwd` key from the root shell returned the active management password in plain text:
   ```text
