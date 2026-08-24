@@ -1,0 +1,1 @@
+# asus-rt-n56u-hardware-firmware-triage
