@@ -42,10 +42,10 @@ A hardware assessment and serial console triage of an ASUS RT-N56U dual-band rou
 
 ## 1. UART Pinout Discovery & Soldering
 
-I located an unpopulated 4-pin through-hole header labeled **J12** along the top edge of the PCB[cite: 1].
+I located an unpopulated 4-pin through-hole header labeled **J12** along the top edge of the PCB
 
 ### Multimeter Signal Probing
-I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground plane and probed each pin during power-on[cite: 1, 3]:
+I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground plane and probed each pin during power-on:
 
 | J12 Pin | Physical Position | Measured Voltage | Identified Function | Connection to CP2102 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -59,7 +59,7 @@ I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethe
 ![Probing RX/Low Line (6.1mV)](photos/07_uart_pin3.jpg)  
 
 ### Header Soldering
-To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 2.54mm male header strip into J12[cite: 1].
+To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 2.54mm male header strip into J12.
 
 ![Soldered 4-Pin UART Header](photos/04_uart_header_pins.jpg)
 
@@ -67,7 +67,7 @@ To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 
 
 ## 2. Bootloader Interception & Root Shell
 
-I hooked up a CP2102 USB-to-UART bridge (Router TX to Adapter RX, Router RX to Adapter TX, GND to GND) and connected at **57,600 baud (8-N-1)** using `picocom`[cite: 1]:
+I hooked up a CP2102 USB-to-UART bridge (Router TX to Adapter RX, Router RX to Adapter TX, GND to GND) and connected at **57,600 baud (8-N-1)** using `picocom`:
 
 ```text
 picocom -b 57600 /dev/ttyUSB0
@@ -89,7 +89,7 @@ Running `printenv` dumped the environment variables, showing the kernel flash st
 ![U-Boot Environment Output](photos/06_printenv_uart.png)
 
 ### Unauthenticated Root Console
-Allowing the boot sequence to proceed initialized Linux kernel 2.6.21 and spawned a BusyBox `ash` shell[cite: 1]. The device dropped directly into an interactive root prompt (`#`) with UID 0 privileges without requesting login credentials[cite: 1].
+Allowing the boot sequence to proceed initialized Linux kernel 2.6.21 and spawned a BusyBox `ash` shell. The device dropped directly into an interactive root prompt (`#`) with UID 0 privileges without requesting login credentials.
 
 ![UART Boot Log and Root Prompt](photos/05_uart_boot_shell.jpg)
 
@@ -97,7 +97,7 @@ Allowing the boot sequence to proceed initialized Linux kernel 2.6.21 and spawne
 
 ## 3. Live System & Flash Storage Triage
 
-With active root access on the serial line, I audited the running system, flash partition map, and active network services[cite: 1].
+With active root access on the serial line, I audited the running system, flash partition map, and active network services.
 
 ### System Architecture
 ```text
@@ -109,7 +109,7 @@ The router runs Linux kernel 2.6.21 on a 32-bit Ralink MIPS 74K V4.12 processor.
 ![System Information and CPU Architecture](photos/07_name_cpuinfo.png)
 
 ### Flash Partition Layout (MTD)
-Checking `/proc/mtd` mapped the physical layout of the 8MB parallel flash chip[cite: 1]:
+Checking `/proc/mtd` mapped the physical layout of the 8MB parallel flash chip:
 
 ```text
 cat /proc/mtd
@@ -120,19 +120,19 @@ cat /proc/mtd
 | `mtd0` | `0x00030000` (192 KB) | `0x00010000` (64 KB) | `"Bootloader"` | U-Boot bootloader binary |
 | `mtd1` | `0x00010000` (64 KB)  | `0x00010000` (64 KB) | `"Config"`     | NVRAM persistent configuration block |
 | `mtd2` | `0x00010000` (64 KB)  | `0x00010000` (64 KB) | `"Factory"`    | Factory calibration data and MAC addresses |
-| `mtd3` | `0x007b0000` (~7.7 MB) | `0x00010000` (64 KB) | `"Kernel"`     | Linux kernel combined with SquashFS RootFS[cite: 1] |
+| `mtd3` | `0x007b0000` (~7.7 MB) | `0x00010000` (64 KB) | `"Kernel"`     | Linux kernel combined with SquashFS RootFS|
 
 ![Flash Partition Layout](photos/08_flash_partitions_mtd.png)
 
 ### Running Services & Web Endpoints
-Running `ps` enumerated active background daemons[cite: 1]:
+Running `ps` enumerated active background daemons:
 * `/usr/sbin/infosvr`: ASUS network discovery service listening on `br0`
 * `httpd`: Embedded web management server[cite: 1]
 * `/sbin/wanduck`: ASUS WAN connection monitor
 * `upnpd`: UPnP discovery daemon
 * `dnsmasq`: DHCP and DNS relay
 
-Listing `/www` displayed all web assets, JavaScript handlers, and ASP/CGI scripts used by the web management interface[cite: 1]:
+Listing `/www` displayed all web assets, JavaScript handlers, and ASP/CGI scripts used by the web management interface:
 
 ```text
 ls -C /www
@@ -161,16 +161,3 @@ ls -C /www
   Updating the password via the administrative web interface commits the new ASCII string directly to flash without cryptographic hashing or salting.
 
 ![Cleartext NVRAM Password Extraction](photos/09_nvram_cleartext_creds.png)
-
-### Finding 2: Unauthenticated Hardware Debug Interface (CWE-1188)
-* **Severity:** High
-* **Attack Vector:** Physical / Local UART Header (`J12`)[cite: 1]
-* **Description:** The PCB exposes an active 4-pin UART serial interface in production[cite: 1]. Connecting to the port grants unauthenticated root shell access and full control over the U-Boot bootloader without requiring login credentials[cite: 1].
-
----
-
-## 5. Remediation Recommendations
-
-1. **Hash Administrative Passwords at Rest:** Transition from cleartext NVRAM variables to salted, one-way cryptographic hashes (such as bcrypt, PBKDF2, or SHA-512) stored in `/etc/shadow` on a persistent partition[cite: 1].
-2. **Disable Serial Console Logins in Production:** Update `/etc/inittab` to prevent unauthenticated `ash` shells from spawning automatically on `ttyS0` in release builds, or require root authentication prior to granting terminal access.
-3. **Depopulate Debug Test Points:** Remove silk screen markings and unpopulated through-hole pin headers for UART and JTAG on production PCB revisions to raise the bar against local bus attacks.
