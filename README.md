@@ -44,6 +44,13 @@ A hardware assessment and serial console triage of an ASUS RT-N56U dual-band rou
 
 I located an unpopulated 4-pin through-hole header labeled **J12** along the top edge of the PCB
 
+### Header Soldering
+To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 2.54mm male header strip into J12.
+
+![Soldered 4-Pin UART Header](photos/04_uart_header_pins.jpg)
+![Board Underside](photos/03_pcb_underside.jpg)
+
+
 ### Multimeter Signal Probing
 I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground plane and probed each pin during power-on:
 
@@ -58,10 +65,6 @@ I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethe
 ![Probing TX Active Line (2.612V)](photos/06_uart_pin2.jpg)  
 ![Probing RX/Low Line (6.1mV)](photos/07_uart_pin3.jpg)  
 
-### Header Soldering
-To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 2.54mm male header strip into J12.
-
-![Soldered 4-Pin UART Header](photos/04_uart_header_pins.jpg)
 
 ---
 
