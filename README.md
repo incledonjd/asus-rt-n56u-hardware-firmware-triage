@@ -18,7 +18,7 @@ A hardware assessment and serial console triage of an ASUS RT-N56U dual-band rou
   * [Flash Partition Layout (MTD)](#flash-partition-layout-mtd)
   * [Running Services & Web Endpoints](#running-services--web-endpoints)
 * [4. Security Findings](#4-security-findings)
-  * [Finding 1: Insecure Credential Storage in NVRAM (CWE-312)](#finding-1-insecure-credential-storage-in-nvram-cwe-312)
+  * [Finding 1: Insecure Credential Storage in NVRAM (CWE-312)](#finding-insecure-credential-storage-in-nvram-cwe-312)
 
 ---
 
