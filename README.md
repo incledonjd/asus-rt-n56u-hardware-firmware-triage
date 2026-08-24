@@ -19,8 +19,6 @@ A hardware assessment and serial console triage of an ASUS RT-N56U dual-band rou
   * [Running Services & Web Endpoints](#running-services--web-endpoints)
 * [4. Security Findings](#4-security-findings)
   * [Finding 1: Insecure Credential Storage in NVRAM (CWE-312)](#finding-1-insecure-credential-storage-in-nvram-cwe-312)
-  * [Finding 2: Unauthenticated Hardware Debug Interface (CWE-1188)](#finding-2-unauthenticated-hardware-debug-interface-cwe-1188)
-* [5. Remediation Recommendations](#5-remediation-recommendations)
 
 ---
 
