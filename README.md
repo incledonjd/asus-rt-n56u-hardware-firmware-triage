@@ -52,7 +52,7 @@ To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 
 
 
 ### Multimeter Signal Probing
-I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground plane and probed each pin during power-on:
+I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground and probed each pin during power-on:
 
 | J12 Pin | Physical Position | Measured Voltage | Identified Function | Connection to CP2102 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -70,7 +70,7 @@ I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethe
 
 ## 2. Bootloader Interception & Root Shell
 
-I hooked up a CP2102 USB-to-UART bridge (Router TX to Adapter RX, Router RX to Adapter TX, GND to GND) and connected at **57,600 baud (8-N-1)** using `picocom`:
+I hooked up a CP2102 USB-to-UART bridge and connected at 57,600 baud using picocom:
 
 ```text
 picocom -b 57600 /dev/ttyUSB0
@@ -89,12 +89,12 @@ Please choose the operation:
 
 Running `printenv` dumped the environment variables, showing the kernel flash start address (`kernel_addr=BFC40000`) and the default IP configuration (`192.168.1.1`).
 
-![U-Boot Environment Output](photos/06_printenv_uart.png)
+![U-Boot Environment Output](photos/09_printenv_uart.png)
 
 ### Unauthenticated Root Console
 Allowing the boot sequence to proceed initialized Linux kernel 2.6.21 and spawned a BusyBox `ash` shell. The device dropped directly into an interactive root prompt (`#`) with UID 0 privileges without requesting login credentials.
 
-![UART Boot Log and Root Prompt](photos/05_uart_boot_shell.jpg)
+![UART Boot Log and Root Prompt](photos/08_uart_boot_shell.jpg)
 
 ---
 
@@ -109,7 +109,7 @@ cat /proc/cpuinfo
 ```
 The router runs Linux kernel 2.6.21 on a 32-bit Ralink MIPS 74K V4.12 processor.
 
-![System Information and CPU Architecture](photos/07_name_cpuinfo.png)
+![System Information and CPU Architecture](photos/10_name_cpuinfo.png)
 
 ### Flash Partition Layout (MTD)
 Checking `/proc/mtd` mapped the physical layout of the 8MB parallel flash chip:
@@ -125,7 +125,7 @@ cat /proc/mtd
 | `mtd2` | `0x00010000` (64 KB)  | `0x00010000` (64 KB) | `"Factory"`    | Factory calibration data and MAC addresses |
 | `mtd3` | `0x007b0000` (~7.7 MB) | `0x00010000` (64 KB) | `"Kernel"`     | Linux kernel combined with SquashFS RootFS|
 
-![Flash Partition Layout](photos/08_flash_partitions_mtd.png)
+![Flash Partition Layout](photos/11_flash_partitions_mtd.png)
 
 ### Running Services & Web Endpoints
 Running `ps` enumerated active background daemons:
@@ -141,8 +141,8 @@ Listing `/www` displayed all web assets, JavaScript handlers, and ASP/CGI script
 ls -C /www
 ```
 
-![Running Processes](photos/10_running_process.png)  
-![Web Root Contents](photos/11_www_folder.png)  
+![Running Processes](photos/12_running_process.png)  
+![Web Root Contents](photos/13_www_folder.png)  
 
 ---
 
