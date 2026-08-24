@@ -19,6 +19,7 @@ A hardware assessment and serial console triage of an ASUS RT-N56U dual-band rou
   * [Running Services & Web Endpoints](#running-services--web-endpoints)
 * [4. Security Findings](#4-security-findings)
   * [Finding 1: Insecure Credential Storage in NVRAM (CWE-312)](#finding-insecure-credential-storage-in-nvram-cwe-312)
+  * [Finding 2: Unauthenticated Hardware Debug Interface (CWE-1188)](#finding-2-unauthenticated-hardware-debug-interface-cwe-1188)
 
 ---
 
@@ -160,3 +161,6 @@ ls -C /www
   Updating the password via the administrative web interface commits the new ASCII string directly to flash without cryptographic hashing or salting.
 
 ![Cleartext NVRAM Password Extraction](photos/09_nvram_cleartext_creds.png)
+
+### Finding 2: Unauthenticated Hardware Debug Interface (CWE-1188)
+* **Description:** The PCB exposes an active 4-pin UART serial interface in production. Connecting to the port grants unauthenticated root shell access and full control over the U-Boot bootloader without requiring login credentials.
