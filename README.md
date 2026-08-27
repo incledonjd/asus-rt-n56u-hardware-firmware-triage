@@ -55,10 +55,10 @@ I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethe
 
 | J12 Pin | Physical Position | Measured Voltage | Identified Function | Connection to CP2102 |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pin 1** | Far Right | `3.362 V` (Steady DC) | VCC (Power Rail) | *Left Disconnected* |
-| **Pin 2** | Middle Right | `2.612 V` (Active Pulses) | Router TX (Transmit) | **Adapter RXD** |
-| **Pin 3** | Middle Left | `6.1 mV` (Logic Low) | Router RX (Receive) | **Adapter TXD** |
-| **Pin 4** | Far Left | `0.000 V` (Continuity to Shield) | GND (Ground) | **Adapter GND** |
+| **Pin 1** | Far Right | `3.362 V` (Steady DC) | VCC (Power Rail)
+| **Pin 2** | Middle Right | `2.612 V` (Active Pulses) | Router TX (Transmit)
+| **Pin 3** | Middle Left | `6.1 mV` (Logic Low) | Router RX (Receive) 
+| **Pin 4** | Far Left | `0.000 V` (Continuity to Shield) | GND (Ground) 
 
 ![Probing VCC Rail (3.362V)](photos/05_uart_pin1.jpg)  
 ![Probing TX Active Line (2.612V)](photos/06_uart_pin2.jpg)  
