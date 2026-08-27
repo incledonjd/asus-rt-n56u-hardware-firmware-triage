@@ -53,7 +53,7 @@ To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 
 ### Multimeter Signal Probing
 I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground and probed each pin during power-on:
 
-| J12 Pin | Physical Position | Measured Voltage | Identified Function | Connection to CP2102 |
+| J12 Pin | Physical Position | Measured Voltage | Identified Function |
 | :--- | :--- | :--- | :--- | :--- |
 | **Pin 1** | Far Right | `3.362 V` (Steady DC) | VCC (Power Rail)
 | **Pin 2** | Middle Right | `2.612 V` (Active Pulses) | Router TX (Transmit)
