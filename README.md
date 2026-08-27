@@ -53,12 +53,12 @@ To make testing reliable and avoid loose connections, I soldered a yellow 4-pin 
 ### Multimeter Signal Probing
 I connected the ground lead of my Klein Tools MM600 multimeter to the RJ-45 Ethernet shielding ground and probed each pin during power-on:
 
-| J12 Pin | Physical Position | Measured Voltage | Identified Function | 
-| :--- | :--- | :--- | :--- | :--- |
-| **Pin 1** | Far Right | `3.362 V` (Steady DC) | VCC (Power Rail)
-| **Pin 2** | Middle Right | `2.612 V` (Active Pulses) | Router TX (Transmit)
-| **Pin 3** | Middle Left | `6.1 mV` (Logic Low) | Router RX (Receive) 
-| **Pin 4** | Far Left | `0.000 V` (Continuity to Shield) | GND (Ground) 
+Physical Position | Measured Voltage | Identified Function | 
+
+Far Right | `3.362 V` (Steady DC) | VCC (Power Rail)
+Middle Right | `2.612 V` (Active Pulses) | Router TX (Transmit)
+Middle Left | `6.1 mV` (Logic Low) | Router RX (Receive) 
+Far Left | `0.000 V` (Continuity to Shield) | GND (Ground) 
 
 ![Probing VCC Rail (3.362V)](photos/05_uart_pin1.jpg)  
 ![Probing TX Active Line (2.612V)](photos/06_uart_pin2.jpg)  
