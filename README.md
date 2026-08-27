@@ -147,10 +147,10 @@ ls -C /www
 
 ## 4. Security Findings
 
-### Finding 1: Insecure Credential Storage in NVRAM (CWE-312)
+### Finding 1: Insecure Credential Storage in NVRAM
 * **Description:** Administrative credentials for the web interface are stored in cleartext within NVRAM. Updating the password via the administrative web interface commits the new ASCII string directly to flash without cryptographic hashing or salting.
 
 ![Cleartext NVRAM Password Extraction](photos/09_nvram_cleartext_creds.png)
 
-### Finding 2: Unauthenticated Hardware Debug Interface (CWE-1188)
+### Finding 2: Unauthenticated Hardware Debug Interface
 * **Description:** The PCB exposes an active 4-pin UART serial interface in production. Connecting to the port grants unauthenticated root shell access and full control over the U-Boot bootloader without requiring login credentials.
